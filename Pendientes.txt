@@ -1,0 +1,18 @@
+CRUD de Clientes
+    - Formulario para ingresar datos del cliente.
+    - Formulario para la edición de datos del cliente.
+    - Eliminación de datos del cliente.
+
+Despliegue de datos
+    - Mostrar listado de clientes creados.
+
+CRUD de Inventario de Propiedades
+    - Formulario para ingresar datos de la propiedad.
+    - Formulario para la edición de datos de la propiedad.
+    - Eliminación de datos de la propiedad.
+
+Generación de contratos de alquiler o compra de propiedades.
+    - Formulario de generación de contratos.
+
+Reportes
+    - Formulario de gneración de consulta.
