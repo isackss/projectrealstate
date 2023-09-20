@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 const ClientForm = ({ type, client, setClient, submitting, handleSubmit }) => {
+  
   const onChangeInput = (e) => {
     setClient({ ...client, [e.target.name]: e.target.value });
     if (e.target.tagName.toLowerCase() == "select") {
@@ -28,8 +29,8 @@ const ClientForm = ({ type, client, setClient, submitting, handleSubmit }) => {
         <div className="mb-3 col-sm-6">
           <label className="form-label">Forma de contacto</label>
           <select
-            defaultValue={client?.contact}
             name="contact"
+            value={client?.contact}
             onChange={onChangeInput}
             className="form-select"
             required
@@ -43,10 +44,9 @@ const ClientForm = ({ type, client, setClient, submitting, handleSubmit }) => {
         <div className="mb-3 col-sm-6">
           <label className="form-label">Interés</label>
           <select
+            name="interested"
             value={client?.interested}
-            onChange={(e) =>
-              setClient({ ...client, interested: e.target.value })
-            }
+            onChange={onChangeInput}
             className="form-select"
           >
             <option>Seleccione una opción</option>
@@ -57,11 +57,12 @@ const ClientForm = ({ type, client, setClient, submitting, handleSubmit }) => {
         <div className="mb-3 col-sm-6">
           <label className="form-label">Asignado a</label>
           <select
+            name="asigned"
             value={client?.asigned}
             className="form-select"
-            onChange={(e) => setClient({ ...client, asigned: e.target.value })}
+            onChange={onChangeInput}
           >
-            <option>No asignado</option>
+            <option>Seleccione un corredor</option>
             <option>Corredor1</option>
             <option>Corredor2</option>
           </select>
@@ -69,13 +70,12 @@ const ClientForm = ({ type, client, setClient, submitting, handleSubmit }) => {
         <div className="mb-3 col-sm-6">
           <label className="form-label">Medio publicitario</label>
           <select
+            name="contactRef"
             value={client?.contactRef}
             className="form-select"
-            onChange={(e) =>
-              setClient({ ...client, contactRef: e.target.value })
-            }
+            onChange={onChangeInput}
           >
-            <option>No seleccionado</option>
+            <option>Sellecione una opción</option>
             <option>Familiar / Amigo</option>
             <option>Feria</option>
             <option>Internet</option>
@@ -89,12 +89,12 @@ const ClientForm = ({ type, client, setClient, submitting, handleSubmit }) => {
         <div className="mb-3 col-sm-6">
           <label className="form-label">¿Es empresa de Bienes Raíces?</label>
           <select
+            name="rsCompany"
             value={client?.rsCompany}
-            onChange={(e) =>
-              setClient({ ...client, rsCompany: e.target.value })
-            }
+            onChange={onChangeInput}
             className="form-select"
           >
+            <option>Seleccione una opción</option>
             <option value={false}>No</option>
             <option value={true}>Sí</option>
           </select>
@@ -102,6 +102,7 @@ const ClientForm = ({ type, client, setClient, submitting, handleSubmit }) => {
         <div className="mb-3">
           <label className="form-label">Mensaje inicial del cliente</label>
           <textarea
+            name="clientMessage"
             value={client?.clientMessage}
             onChange={(e) =>
               setClient({ ...client, clientMessage: e.target.value })
@@ -114,10 +115,9 @@ const ClientForm = ({ type, client, setClient, submitting, handleSubmit }) => {
         <div className="mb-3 col-sm-6">
           <label className="form-label">Teléfono de contacto</label>
           <input
+            name="clientPhone"
             value={client?.clientPhone}
-            onChange={(e) =>
-              setClient({ ...client, clientPhone: e.target.value })
-            }
+            onChange={onChangeInput}
             placeholder="Escriba el número de teléfono."
             required
             className="form-control"
@@ -126,11 +126,10 @@ const ClientForm = ({ type, client, setClient, submitting, handleSubmit }) => {
         <div className="mb-3 col-sm-6">
           <label className="form-label">Correo</label>
           <input
+            name="clientEmail"
             type="email"
             value={client?.clientEmail}
-            onChange={(e) =>
-              setClient({ ...client, clientEmail: e.target.value })
-            }
+            onChange={onChangeInput}
             placeholder="correo@dominio.com"
             required
             className="form-control"
@@ -139,10 +138,9 @@ const ClientForm = ({ type, client, setClient, submitting, handleSubmit }) => {
         <div className="mb-3">
           <label className="form-label">Comentarios del corredor</label>
           <textarea
+            name="brokerComment"
             value={client?.brokerComment}
-            onChange={(e) =>
-              setClient({ ...client, brokerComment: e.target.value })
-            }
+            onChange={onChangeInput}
             placeholder="Escriba el comentario"
             className="form-control"
           />
@@ -151,11 +149,7 @@ const ClientForm = ({ type, client, setClient, submitting, handleSubmit }) => {
           <Link href="/clientes" className="btn btn-secondary mx-2">
             Cancelar
           </Link>
-          <button
-            type="submit"
-            disabled={false}
-            className="btn btn-primary"
-          >
+          <button type="submit" disabled={submitting} className="btn btn-primary">
             {submitting ? `${type}...` : type}
           </button>
         </div>

@@ -1,14 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 import ClientForm from "@/components/ClientForm";
 
 
-const CrearCliente = () => {
+const EditClient = () => {
 
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const clientId = searchParams.get("id")
+  
   const [submitting, setSubmitting] = useState(false)
   const [client, setClient] = useState({
     name: "",
@@ -23,14 +26,23 @@ const CrearCliente = () => {
     brokerComment: ""
   });
 
-  const createClient = async (e) => {
+  useEffect(()=>{
+    const getClientDetails = async () => {
+      const response = await fetch(`/api/client/${clientId}`)
+      const data = await response.json()
+      setClient(data)
+    }
+    clientId && getClientDetails()
+  }, [clientId])
+
+  const updateClient = async (e) => {
     e.preventDefault();
 
     setSubmitting(true)
 
     try {
-      const response = await fetch("/api/client/new", {
-        method: "POST",
+      const response = await fetch(`/api/client/${clientId}`, {
+        method: "PATCH",
         body: JSON.stringify({
           name: client.name,
           contact: client.contact,
@@ -58,17 +70,17 @@ const CrearCliente = () => {
   return (
     <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 className="h2">Registro de clientes</h1>
+        <h1 className="h2">Actualizar datos del cliente</h1>
       </div>
       <ClientForm 
-        type="Crear"
+        type="Editar"
         client={client}
         setClient={setClient}
         submitting={submitting}
-        handleSubmit={createClient}
+        handleSubmit={updateClient}
       />
     </main>
   );
 };
 
-export default CrearCliente;
+export default EditClient;
