@@ -1,9 +1,7 @@
-"use client";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "@/styles/dashboard.css";
-import { useEffect } from "react";
+
 
 import Sidebar from "@/components/Sidebar";
 import Navbar from "@/components/Navbar";
@@ -15,9 +13,6 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  useEffect(() => {
-    require("bootstrap");
-  });
 
   return (
     <html lang="es">
